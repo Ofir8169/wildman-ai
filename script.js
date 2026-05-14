@@ -683,3 +683,28 @@ if (gallerySlider) {
     gallerySlider.scrollLeft = galleryScrollLeft - walk;
   });
 }
+const mobileNavLinks = document.querySelectorAll(".mobile-bottom-nav a");
+const pageSections = document.querySelectorAll("section[id]");
+
+function updateMobileNav() {
+  let currentSection = "";
+
+  pageSections.forEach(section => {
+    const sectionTop = section.offsetTop - 140;
+
+    if (window.scrollY >= sectionTop) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  mobileNavLinks.forEach(link => {
+    link.classList.remove("active");
+
+    if (link.getAttribute("href") === "#" + currentSection) {
+      link.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", updateMobileNav);
+updateMobileNav();
