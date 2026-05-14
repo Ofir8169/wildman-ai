@@ -649,3 +649,37 @@ if (heroSection) {
     }
   });
 }
+/* Drag gallery with mouse */
+
+const gallerySlider = document.querySelector(".gallery-slider");
+
+let isGalleryDown = false;
+let galleryStartX = 0;
+let galleryScrollLeft = 0;
+
+if (gallerySlider) {
+  gallerySlider.addEventListener("mousedown", event => {
+    isGalleryDown = true;
+    galleryStartX = event.pageX - gallerySlider.offsetLeft;
+    galleryScrollLeft = gallerySlider.scrollLeft;
+  });
+
+  gallerySlider.addEventListener("mouseleave", () => {
+    isGalleryDown = false;
+  });
+
+  gallerySlider.addEventListener("mouseup", () => {
+    isGalleryDown = false;
+  });
+
+  gallerySlider.addEventListener("mousemove", event => {
+    if (!isGalleryDown) return;
+
+    event.preventDefault();
+
+    const x = event.pageX - gallerySlider.offsetLeft;
+    const walk = (x - galleryStartX) * 1.7;
+
+    gallerySlider.scrollLeft = galleryScrollLeft - walk;
+  });
+}
