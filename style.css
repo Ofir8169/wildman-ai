@@ -30,5 +30,23 @@
 .upload-image input{
 
   display:none;
+.upload-image{
+  display:flex !important;
+  width:64px !important;
+  min-width:64px !important;
+  height:56px !important;
+  justify-content:center !important;
+  align-items:center !important;
+  font-size:26px !important;
+  background:#e8d7be !important;
+  color:#4A3526 !important;
+  border-left:1px solid #DCCDB8 !important;
+  cursor:pointer !important;
+  z-index:999999 !important;
+}
+
+.upload-image input{
+  display:none !important;
+}
 
 }
