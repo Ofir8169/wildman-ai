@@ -353,5 +353,190 @@ nav a{
 
   .contact-buttons a{
     width:100%;
+
+
   }
+/* PREMIUM MOBILE BOTTOM DESIGN */
+
+@media(max-width:768px){
+
+  body{
+    background:#F7F1E6;
+  }
+
+  .contact{
+    padding:70px 22px 120px;
+    background:
+      radial-gradient(circle at top,#fff8ec,#efe3d1);
+    border-radius:36px 36px 0 0;
+  }
+
+  .contact h2{
+    font-size:38px;
+    line-height:1.25;
+    color:#5A3E2B;
+    margin-bottom:34px;
+  }
+
+  .contact-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .contact-buttons a{
+    width:100%;
+    height:76px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:800;
+    color:white;
+    text-decoration:none;
+    box-shadow:0 18px 35px rgba(111,75,52,0.18);
+  }
+
+  .instagram{
+    background:linear-gradient(135deg,#B8733F,#D5A45F);
+  }
+
+  .whatsapp{
+    background:linear-gradient(135deg,#7C8150,#B8AA69);
+  }
+
+  /* AI CHAT */
+
+  .ai-chat{
+    left:18px;
+    right:18px;
+    bottom:92px;
+    width:auto;
+    height:64vh;
+    border-radius:28px;
+    background:rgba(246,241,231,0.96);
+    border:1px solid rgba(220,205,184,0.9);
+    box-shadow:0 25px 70px rgba(90,62,43,0.22);
+    backdrop-filter:blur(18px);
+    overflow:hidden;
+  }
+
+  .ai-header{
+    padding:22px;
+    background:linear-gradient(135deg,#7A563D,#C8A46A);
+    color:white;
+    text-align:right;
+  }
+
+  .ai-header strong{
+    font-size:24px;
+  }
+
+  .ai-header span{
+    font-size:14px;
+  }
+
+  .ai-messages{
+    background:#F3EBDD;
+    padding:18px;
+  }
+
+  .ai-message{
+    font-size:17px;
+    line-height:1.7;
+    border-radius:20px;
+    padding:15px 17px;
+  }
+
+  .ai-message.bot{
+    background:white;
+    color:#4A3526;
+    margin-left:auto;
+    box-shadow:0 8px 24px rgba(0,0,0,0.05);
+  }
+
+  .ai-message.user{
+    background:#D8C2A5;
+    color:#4A3526;
+    margin-right:auto;
+  }
+
+  .ai-input{
+    height:72px;
+    background:white;
+    border-top:1px solid #DCCDB8;
+  }
+
+  .ai-input input{
+    font-size:16px;
+    padding:18px;
+  }
+
+  .ai-input button{
+    height:72px;
+    width:86px;
+    background:#7A563D;
+    font-size:16px;
+  }
+
+  .upload-image{
+    width:64px;
+    min-width:64px;
+    height:72px;
+    font-size:24px;
+    background:#F3EBDD;
+  }
+
+  .ai-open{
+    left:22px;
+    bottom:92px;
+    width:68px;
+    height:68px;
+    background:linear-gradient(135deg,#7A563D,#C8A46A);
+    box-shadow:0 18px 45px rgba(90,62,43,0.28);
+  }
+
+  /* MOBILE NAV */
+
+  .mobile-bottom-nav{
+    position:fixed;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 28px);
+    height:72px;
+    background:rgba(255,250,240,0.92);
+    border:1px solid #DCCDB8;
+    border-radius:999px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    align-items:center;
+    z-index:99999;
+    backdrop-filter:blur(18px);
+    box-shadow:0 18px 45px rgba(90,62,43,0.18);
+  }
+
+  .mobile-bottom-nav a{
+    color:#6F4B34;
+    text-decoration:none;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+  }
+
+  .mobile-bottom-nav a.active{
+    background:linear-gradient(135deg,#7A563D,#C8A46A);
+    color:white;
+    padding:14px 6px;
+    border-radius:999px;
+  }
+
 }
+
+
+
+
+
+}
+
