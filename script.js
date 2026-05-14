@@ -217,7 +217,14 @@ function toBase64(file){
     message,
     "user"
   );
+if (quoteMode) {
+  const handled = await handleQuoteFlow(message);
 
+  if (handled) {
+    aiInputBox.value = "";
+    return;
+  }
+}
   aiInputBox.value = "";
 
   /* טעינה */
@@ -437,3 +444,79 @@ window.addEventListener(
 );
 
 revealOnScroll();
+const startQuoteBtn = document.getElementById("startQuote");
+
+let quoteMode = false;
+let quoteStep = 0;
+
+const quoteAnswers = {
+  location: "",
+  size: "",
+  workType: "",
+  style: "",
+  phone: ""
+};
+
+if (startQuoteBtn) {
+  startQuoteBtn.addEventListener("click", () => {
+    quoteMode = true;
+    quoteStep = 1;
+
+    addAiMessage(
+      "מעולה 🌿 נתחיל הערכת מחיר קצרה. באיזה אזור נמצא הפרויקט?",
+      "bot"
+    );
+  });
+}
+
+async function handleQuoteFlow(message) {
+  if (quoteStep === 1) {
+    quoteAnswers.location = message;
+    quoteStep = 2;
+    addAiMessage("מה גודל השטח בערך במ״ר?", "bot");
+    return true;
+  }
+
+  if (quoteStep === 2) {
+    quoteAnswers.size = message;
+    quoteStep = 3;
+    addAiMessage("מה תרצה לעשות? גינה, פרגולה, דק, תאורה, השקיה או שילוב?", "bot");
+    return true;
+  }
+
+  if (quoteStep === 3) {
+    quoteAnswers.workType = message;
+    quoteStep = 4;
+    addAiMessage("איזה סגנון אתה אוהב? מודרני, טבעי, יוקרתי, ים־תיכוני?", "bot");
+    return true;
+  }
+
+  if (quoteStep === 4) {
+    quoteAnswers.style = message;
+    quoteStep = 5;
+    addAiMessage("מעולה. מה מספר הטלפון לחזרה?", "bot");
+    return true;
+  }
+
+  if (quoteStep === 5) {
+    quoteAnswers.phone = message;
+    quoteMode = false;
+    quoteStep = 0;
+
+    const summary = `
+סיכום ליד חדש 🌿<br><br>
+אזור: ${quoteAnswers.location}<br>
+גודל שטח: ${quoteAnswers.size}<br>
+סוג עבודה: ${quoteAnswers.workType}<br>
+סגנון: ${quoteAnswers.style}<br>
+טלפון: ${quoteAnswers.phone}<br><br>
+המלצה: כדאי לקבוע שיחת ייעוץ קצרה ולבקש תמונות/וידאו של השטח.
+`;
+
+    addAiMessage(summary, "bot");
+
+    return true;
+  }
+
+  return false;
+}

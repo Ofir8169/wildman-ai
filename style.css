@@ -48,5 +48,18 @@
 .upload-image input{
   display:none !important;
 }
+.ai-actions {
+  margin-bottom: 14px;
+}
 
+.ai-actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #6F4B34, #C8A46A);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
 }
