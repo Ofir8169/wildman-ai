@@ -1022,4 +1022,28 @@ nav a:hover::after{
     width:auto;
     height:70vh;
   }
+  .upload-image{
+
+  width:62px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  border-left:
+  1px solid #DCCDB8;
+
+  background:white;
+
+}
+
+.upload-image input{
+
+  display:none;
+
+}
 }

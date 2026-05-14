@@ -89,7 +89,123 @@ if(aiInputBox){
 /* שליחת הודעה */
 
 async function sendAiMessage(){
+async function sendAiMessage(){
 
+  const message =
+  aiInputBox.value.trim();
+
+  const imageInput =
+  document.getElementById(
+    "imageUpload"
+  );
+
+  const file =
+  imageInput.files[0];
+
+  if(!message && !file)
+  return;
+
+  addAiMessage(
+    message || "📷 נשלחה תמונה",
+    "user"
+  );
+
+  aiInputBox.value = "";
+
+  const loading =
+  addAiMessage(
+    "🌿 מנתח...",
+    "bot"
+  );
+
+  try{
+
+    let imageBase64 = null;
+
+    /* המרת תמונה */
+
+    if(file){
+
+      imageBase64 =
+      await toBase64(file);
+
+      imageBase64 =
+      imageBase64.split(",")[1];
+
+    }
+
+    const response =
+    await fetch(
+
+      "https://wildman-ai.onrender.com/chat",
+
+      {
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+          "application/json"
+        },
+
+        body:JSON.stringify({
+
+          message:message,
+
+          image:imageBase64
+
+        })
+
+      }
+
+    );
+
+    const data =
+    await response.json();
+
+    loading.innerHTML =
+    data.reply.replace(
+      /\n/g,
+      "<br>"
+    );
+
+    imageInput.value = "";
+
+  }
+
+  catch(error){
+
+    console.log(error);
+
+    loading.innerHTML =
+    "שגיאה בניתוח התמונה 🌿";
+
+  }
+
+}
+
+/* BASE64 */
+
+function toBase64(file){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const reader =
+      new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onload =
+      ()=>resolve(reader.result);
+
+      reader.onerror =
+      error=>reject(error);
+
+    }
+  );
+
+}
   const message =
   aiInputBox.value.trim();
 

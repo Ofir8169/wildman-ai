@@ -7,73 +7,131 @@ const { GoogleGenAI } = require("@google/genai");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+
+app.use(express.json({
+  limit:"20mb"
+}));
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY
 });
 
-app.get("/", (req, res) => {
-  res.send("Wildman AI עובד");
+app.get("/", (req,res)=>{
+
+  res.send(
+    "Wildman AI עובד"
+  );
+
 });
 
-app.post("/chat", async (req, res) => {
-  try {
-    const userMessage = req.body.message || "";
+app.post("/chat", async (req,res)=>{
+
+  try{
+
+    const {
+      message,
+      image
+    } = req.body;
 
     const prompt = `
-אתה יועץ גינות מקצועי של ווילדמן.
+    אתה מומחה מקצועי לצמחייה,
+    גינות יוקרה,
+    השקיה,
+    תאורה,
+    דקים,
+    פרגולות ועיצוב חוץ.
 
-ענה בעברית בלבד.
-ענה קצר, ברור, מקצועי ונעים.
+    ענה בעברית בלבד.
+    תהיה קצר,
+    ברור,
+    מקצועי ונעים.
 
-אתה מבין בצמחייה, השקיה, תאורה, דקים, פרגולות, גינות יוקרה ועיצוב חוץ בישראל.
+    אם יש תמונה:
+    נתח אותה מקצועית.
 
-שאלה:
-${userMessage}
-`;
+    שאלה:
+    ${message}
+    `;
 
-    const models = [
-      "gemini-2.0-flash",
-      "gemini-2.5-flash"
-    ];
+    let response;
 
-    let lastError = null;
+    /* אם יש תמונה */
 
-    for (const model of models) {
-      try {
-        const response = await ai.models.generateContent({
-          model: model,
-          contents: prompt
-        });
+    if(image){
 
-        return res.json({
-          reply: response.text
-        });
+      response =
+      await ai.models.generateContent({
 
-      } catch (error) {
-        lastError = error;
-        console.log("Model failed:", model, error.status || error.message);
-      }
+        model:"gemini-2.0-flash",
+
+        contents:[
+
+          {
+            text:prompt
+          },
+
+          {
+            inlineData:{
+
+              mimeType:"image/jpeg",
+
+              data:image
+
+            }
+          }
+
+        ]
+
+      });
+
     }
 
-    console.log(lastError);
+    /* רק טקסט */
+
+    else{
+
+      response =
+      await ai.models.generateContent({
+
+        model:"gemini-2.0-flash",
+
+        contents:prompt
+
+      });
+
+    }
 
     res.json({
-      reply: "יש כרגע עומס זמני ב־AI. נסה שוב בעוד רגע 🌿"
+
+      reply:
+      response.text
+
     });
 
-  } catch (error) {
+  }
+
+  catch(error){
+
     console.log(error);
 
     res.json({
-      reply: "אירעה שגיאה זמנית. נסה שוב בעוד רגע 🌿"
+
+      reply:
+      "יש עומס זמני ב־AI 🌿"
+
     });
+
   }
+
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+app.listen(PORT,()=>{
+
+  console.log(
+    "Server running on port " + PORT
+  );
+
 });
