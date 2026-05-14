@@ -1,287 +1,323 @@
-const slides =
-document.querySelectorAll(".slide");
+const openAiBtn =
+document.getElementById("openAi");
 
-const heroDots =
-document.getElementById("heroDots");
+const closeAiBtn =
+document.getElementById("closeAi");
 
-let currentHero = 0;
+const aiChatBox =
+document.getElementById("aiChat");
 
-/* DOTS */
+const aiInputBox =
+document.getElementById("aiInput");
 
-slides.forEach((slide,index)=>{
+const sendAiBtn =
+document.getElementById("sendAi");
 
-  const dot =
-  document.createElement("button");
+const aiMessagesBox =
+document.getElementById("aiMessages");
 
-  if(index === 0){
+const quickBtns =
+document.querySelectorAll(".ai-quick button");
 
-    dot.classList.add("active");
+/* פתיחה */
 
-  }
+if(openAiBtn){
 
-  dot.addEventListener(
-    "click",
-    ()=>{
+  openAiBtn.onclick = () => {
 
-      showHero(index);
+    aiChatBox.classList.add("show");
 
-    }
-  );
-
-  heroDots.appendChild(dot);
-
-});
-
-function showHero(index){
-
-  slides.forEach(slide=>{
-
-    slide.classList.remove("active");
-
-  });
-
-  document
-  .querySelectorAll(".hero-dots button")
-  .forEach(dot=>{
-
-    dot.classList.remove("active");
-
-  });
-
-  currentHero = index;
-
-  slides[currentHero]
-  .classList.add("active");
-
-  document
-  .querySelectorAll(".hero-dots button")
-  [currentHero]
-  .classList.add("active");
+  };
 
 }
 
-function nextHeroSlide(){
+/* סגירה */
 
-  let next =
-  currentHero + 1;
+if(closeAiBtn){
 
-  if(next >= slides.length){
+  closeAiBtn.onclick = () => {
 
-    next = 0;
+    aiChatBox.classList.remove("show");
 
-  }
-
-  showHero(next);
+  };
 
 }
 
-/* AUTO SLIDER */
+/* הודעות מהירות */
 
-setInterval(
-  nextHeroSlide,
-  2000
-);
+quickBtns.forEach(btn => {
 
-/* FULLSCREEN */
+  btn.onclick = () => {
 
-const galleryImages =
-document.querySelectorAll(
-  ".gallery-slider img"
-);
+    aiInputBox.value =
+    btn.innerText;
 
-const fullscreen =
-document.getElementById(
-  "fullscreen"
-);
+    sendAiMessage();
 
-const fullscreenImage =
-document.getElementById(
-  "fullscreenImage"
-);
-
-const closeFullscreen =
-document.getElementById(
-  "closeFullscreen"
-);
-
-galleryImages.forEach(image=>{
-
-  image.addEventListener(
-    "click",
-    ()=>{
-
-      fullscreen
-      .classList
-      .add("show");
-
-      fullscreenImage.src =
-      image.src;
-
-    }
-  );
+  };
 
 });
 
-closeFullscreen.addEventListener(
-  "click",
-  ()=>{
+/* שליחה */
 
-    fullscreen
-    .classList
-    .remove("show");
+if(sendAiBtn){
 
-  }
-);
+  sendAiBtn.onclick =
+  sendAiMessage;
 
-fullscreen.addEventListener(
-  "click",
-  e=>{
+}
 
-    if(e.target === fullscreen){
+/* אנטר */
 
-      fullscreen
-      .classList
-      .remove("show");
+if(aiInputBox){
 
-    }
+  aiInputBox.addEventListener(
+    "keydown",
+    event => {
 
-  }
-);
+      if(event.key === "Enter"){
 
-/* SWIPE */
-
-let touchStart = 0;
-
-const hero =
-document.querySelector(".hero");
-
-hero.addEventListener(
-  "touchstart",
-  e=>{
-
-    touchStart =
-    e.changedTouches[0].screenX;
-
-  }
-);
-
-hero.addEventListener(
-  "touchend",
-  e=>{
-
-    const diff =
-    touchStart -
-    e.changedTouches[0].screenX;
-
-    if(Math.abs(diff) > 50){
-
-      if(diff > 0){
-
-        nextHeroSlide();
-
-      }
-
-      else{
-
-        let prev =
-        currentHero - 1;
-
-        if(prev < 0){
-
-          prev =
-          slides.length - 1;
-
-        }
-
-        showHero(prev);
+        sendAiMessage();
 
       }
 
     }
+  );
 
-  }
-);
-const openAi = document.getElementById("openAi");
-const closeAi = document.getElementById("closeAi");
-const aiChat = document.getElementById("aiChat");
-const aiInput = document.getElementById("aiInput");
-const sendAi = document.getElementById("sendAi");
-const aiMessages = document.getElementById("aiMessages");
-const quickButtons = document.querySelectorAll(".ai-quick button");
+}
 
-openAi.addEventListener("click", () => {
-  aiChat.classList.add("show");
-});
-
-closeAi.addEventListener("click", () => {
-  aiChat.classList.remove("show");
-});
-
-quickButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    aiInput.value = button.innerText;
-    sendAiMessage();
-  });
-});
-
-sendAi.addEventListener("click", sendAiMessage);
-
-aiInput.addEventListener("keydown", event => {
-  if(event.key === "Enter"){
-    sendAiMessage();
-  }
-});
+/* שליחת הודעה */
 
 async function sendAiMessage(){
 
-  const message = aiInput.value.trim();
+  const message =
+  aiInputBox.value.trim();
 
   if(!message) return;
 
-  addMessage(message, "user");
+  /* הודעת משתמש */
 
-  aiInput.value = "";
+  addAiMessage(
+    message,
+    "user"
+  );
 
-  const loading = addMessage("רגע, בודק לך 🌿", "bot");
+  aiInputBox.value = "";
+
+  /* טעינה */
+
+  const loading =
+  addAiMessage(
+    "🌿 חושב...",
+    "bot"
+  );
 
   try{
 
-    const response = await fetch("https://YOUR-RENDER-LINK.onrender.com/chat", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        message:message
-      })
-    });
+    /* כאן השרת של Render */
 
-    const data = await response.json();
+    const response =
+    await fetch(
+      "https://wildman-ai.onrender.com/chat",
+      {
+        method:"POST",
 
-    loading.innerHTML = data.reply.replace(/\n/g,"<br>");
+        headers:{
+          "Content-Type":
+          "application/json"
+        },
+
+        body:JSON.stringify({
+          message:message
+        })
+
+      }
+    );
+
+    const data =
+    await response.json();
+
+    loading.innerHTML =
+    data.reply.replace(
+      /\n/g,
+      "<br>"
+    );
 
   }
 
   catch(error){
 
-    loading.innerHTML = "יש בעיה בחיבור לצ׳אט. ודא שהשרת עובד עם node server.js";
+    console.log(error);
+
+    loading.innerHTML = `
+      יש בעיה בחיבור ל־AI 🌿
+      <br><br>
+      בדוק ש־Render פעיל
+    `;
 
   }
 
-  aiMessages.scrollTop = aiMessages.scrollHeight;
+  aiMessagesBox.scrollTop =
+  aiMessagesBox.scrollHeight;
+
 }
 
-function addMessage(text,type){
+/* יצירת הודעה */
 
-  const div = document.createElement("div");
+function addAiMessage(
+  text,
+  type
+){
 
-  div.className = "ai-message " + type;
+  const div =
+  document.createElement("div");
+
+  div.className =
+  "ai-message " + type;
 
   div.innerHTML = text;
 
-  aiMessages.appendChild(div);
+  aiMessagesBox.appendChild(div);
 
-  aiMessages.scrollTop = aiMessages.scrollHeight;
+  aiMessagesBox.scrollTop =
+  aiMessagesBox.scrollHeight;
 
   return div;
+
 }
+
+/* אנימציית פתיחה */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    setTimeout(() => {
+
+      document.body.classList.add(
+        "loaded"
+      );
+
+    },500);
+
+  }
+);
+
+/* אפקט כרטיסים */
+
+const cards =
+document.querySelectorAll(
+  ".service-card"
+);
+
+cards.forEach((card,index)=>{
+
+  card.animate(
+
+    [
+
+      {
+        transform:
+        "translateY(0px)"
+      },
+
+      {
+        transform:
+        "translateY(-10px)"
+      },
+
+      {
+        transform:
+        "translateY(0px)"
+      }
+
+    ],
+
+    {
+
+      duration:
+      4500 + (index * 700),
+
+      iterations:
+      Infinity
+
+    }
+
+  );
+
+});
+
+/* גלריה אוטומטית */
+
+const slides =
+document.querySelectorAll(
+  ".hero-slide"
+);
+
+let currentSlide = 0;
+
+function changeSlide(){
+
+  slides.forEach(slide => {
+
+    slide.classList.remove(
+      "active"
+    );
+
+  });
+
+  currentSlide++;
+
+  if(
+    currentSlide >= slides.length
+  ){
+
+    currentSlide = 0;
+
+  }
+
+  slides[currentSlide]
+  .classList.add("active");
+
+}
+
+setInterval(
+  changeSlide,
+  2000
+);
+
+/* Reveal */
+
+const reveals =
+document.querySelectorAll(
+  ".reveal"
+);
+
+function revealOnScroll(){
+
+  const trigger =
+  window.innerHeight * 0.88;
+
+  reveals.forEach(item=>{
+
+    const top =
+    item.getBoundingClientRect().top;
+
+    if(top < trigger){
+
+      item.classList.add(
+        "active"
+      );
+
+    }
+
+  });
+
+}
+
+window.addEventListener(
+  "scroll",
+  revealOnScroll
+);
+
+revealOnScroll();
