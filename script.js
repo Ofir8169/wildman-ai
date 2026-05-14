@@ -520,3 +520,108 @@ async function handleQuoteFlow(message) {
 
   return false;
 }
+/* =========================
+   LUXURY MOTION
+========================= */
+
+const cursorLight = document.createElement("div");
+cursorLight.className = "cursor-light";
+document.body.appendChild(cursorLight);
+
+document.addEventListener("mousemove", event => {
+  cursorLight.style.left = event.clientX + "px";
+  cursorLight.style.top = event.clientY + "px";
+});
+
+/* Smooth Scroll */
+const lenis = new Lenis({
+  duration: 1.25,
+  smoothWheel: true,
+  smoothTouch: false
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
+/* GSAP */
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from(".hero-content", {
+  opacity: 0,
+  y: 50,
+  duration: 1.2,
+  ease: "power3.out"
+});
+
+gsap.from("header", {
+  opacity: 0,
+  y: -30,
+  duration: 1,
+  ease: "power3.out"
+});
+
+gsap.utils.toArray(".service-card").forEach((card, index) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%"
+    },
+    opacity: 0,
+    y: 50,
+    duration: 0.9,
+    delay: index * 0.12,
+    ease: "power3.out"
+  });
+});
+
+gsap.utils.toArray(".gallery-slider img").forEach((image, index) => {
+  gsap.from(image, {
+    scrollTrigger: {
+      trigger: image,
+      start: "top 90%"
+    },
+    opacity: 0,
+    scale: 0.92,
+    duration: 0.9,
+    delay: index * 0.05,
+    ease: "power3.out"
+  });
+});
+
+gsap.from(".contact", {
+  scrollTrigger: {
+    trigger: ".contact",
+    start: "top 80%"
+  },
+  opacity: 0,
+  y: 60,
+  duration: 1,
+  ease: "power3.out"
+});
+
+/* 3D hover cards */
+document.querySelectorAll(".service-card").forEach(card => {
+  card.addEventListener("mousemove", event => {
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+
+    card.style.transform = `
+      perspective(900px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      translateY(-8px)
+    `;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+  });
+});

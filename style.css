@@ -62,4 +62,27 @@
   cursor: pointer;
   font-family: inherit;
 }
+.reveal-luxury {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.service-card,
+.gallery-slider img,
+.contact,
+.hero-content {
+  will-change: transform, opacity;
+}
+
+.cursor-light {
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,164,106,0.18), transparent 65%);
+  pointer-events: none;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+}
 }
