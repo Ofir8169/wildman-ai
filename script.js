@@ -625,3 +625,27 @@ document.querySelectorAll(".service-card").forEach(card => {
     card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
   });
 });
+/* Hero cinematic mouse movement */
+
+const heroSection = document.querySelector(".hero");
+
+if (heroSection) {
+  heroSection.addEventListener("mousemove", event => {
+    const x = (event.clientX / window.innerWidth - 0.5) * 18;
+    const y = (event.clientY / window.innerHeight - 0.5) * 18;
+
+    const activeSlide = document.querySelector(".slide.active");
+
+    if (activeSlide) {
+      activeSlide.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+    }
+  });
+
+  heroSection.addEventListener("mouseleave", () => {
+    const activeSlide = document.querySelector(".slide.active");
+
+    if (activeSlide) {
+      activeSlide.style.backgroundPosition = "center";
+    }
+  });
+}
