@@ -20,6 +20,17 @@ body{
   width:100%;
 }
 
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:999999;
+  opacity:0.045;
+  background-image:
+  radial-gradient(#000 0.7px, transparent 0.7px);
+  background-size:4px 4px;
+}
+
 /* NAVBAR */
 
 .navbar{
@@ -39,6 +50,7 @@ body{
   justify-content:space-between;
   align-items:center;
   z-index:999;
+  box-shadow:0 18px 45px rgba(111,75,52,0.13);
 }
 
 .logo{
@@ -64,6 +76,7 @@ nav a{
 .hero{
   position:relative;
   height:100vh;
+  min-height:720px;
   overflow:hidden;
 }
 
@@ -73,17 +86,21 @@ nav a{
   background-size:cover;
   background-position:center;
   opacity:0;
-  transition:1.2s;
+  transform:scale(1.08);
+  transition:opacity 1.35s ease, transform 6s ease;
 }
 
 .hero-bg.active{
   opacity:1;
+  transform:scale(1);
 }
 
 .overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.45);
+  background:
+  linear-gradient(90deg,rgba(35,20,12,0.65),rgba(35,20,12,0.18)),
+  linear-gradient(to bottom,rgba(0,0,0,0.08),rgba(0,0,0,0.38));
 }
 
 .hero-content{
@@ -97,8 +114,7 @@ nav a{
   color:white;
 }
 
-.mini,
-.section-mini{
+.mini{
   color:#E5C98C;
   letter-spacing:5px;
   font-size:14px;
@@ -118,9 +134,9 @@ nav a{
 }
 
 .desc{
-  max-width:650px;
+  max-width:660px;
   font-size:22px;
-  line-height:1.7;
+  line-height:1.75;
 }
 
 .buttons{
@@ -132,10 +148,17 @@ nav a{
 .buttons a{
   padding:18px 36px;
   border-radius:999px;
-  background:#8A6248;
+  background:linear-gradient(135deg,#8A6248,#C8A46A);
   color:white;
   text-decoration:none;
   font-weight:900;
+  box-shadow:0 18px 45px rgba(0,0,0,0.2);
+}
+
+.buttons .light-btn{
+  background:rgba(255,255,255,0.18);
+  border:1px solid rgba(255,255,255,0.45);
+  backdrop-filter:blur(10px);
 }
 
 /* SECTIONS */
@@ -151,7 +174,8 @@ nav a{
   font-weight:900;
   color:#6F4B34;
   text-align:center;
-  margin-bottom:54px;
+  margin-bottom:44px;
+  line-height:1.15;
 }
 
 /* CARDS */
@@ -163,13 +187,15 @@ nav a{
 }
 
 .card{
-  background:white;
+  background:rgba(255,255,255,0.86);
   padding:42px;
-  border-radius:42px;
+  border-radius:44px;
+  border:1px solid #DCCDB8;
+  box-shadow:0 20px 60px rgba(111,75,52,0.11);
 }
 
 .card span{
-  font-size:58px;
+  font-size:62px;
   font-weight:900;
   color:#C8A46A;
 }
@@ -177,15 +203,48 @@ nav a{
 .card h3{
   margin-top:20px;
   font-size:30px;
+  color:#6F4B34;
 }
 
 .card p{
   margin-top:14px;
   font-size:18px;
   line-height:1.8;
+  color:#705746;
+}
+
+/* MARQUEE */
+
+.marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  background:#EFE7D8;
+  padding:28px 0;
+  color:#6F4B34;
+  font-weight:900;
+  font-size:26px;
+}
+
+.marquee div{
+  display:inline-block;
+  animation:marqueeMove 18s linear infinite;
+}
+
+@keyframes marqueeMove{
+  from{
+    transform:translateX(100%);
+  }
+
+  to{
+    transform:translateX(-100%);
+  }
 }
 
 /* GALLERY */
+
+.gallery{
+  background:#F6F1E7;
+}
 
 .gallery-grid{
   display:grid;
@@ -195,10 +254,16 @@ nav a{
 
 .gallery-grid img{
   width:100%;
-  height:320px;
+  height:330px;
   object-fit:cover;
-  border-radius:38px;
+  border-radius:40px;
   cursor:pointer;
+  box-shadow:0 20px 55px rgba(111,75,52,0.14);
+  transition:0.35s;
+}
+
+.gallery-grid img:hover{
+  transform:scale(1.025);
 }
 
 /* CINEMATIC */
@@ -206,8 +271,8 @@ nav a{
 .cinematic-section{
   position:relative;
   height:100vh;
-  margin:20px;
-  border-radius:48px;
+  margin:24px;
+  border-radius:54px;
   overflow:hidden;
 }
 
@@ -217,12 +282,13 @@ nav a{
   background-image:url("/images/garden5.jpeg");
   background-size:cover;
   background-position:center;
+  transform:scale(1.05);
 }
 
 .cinematic-overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.45);
+  background:rgba(0,0,0,0.48);
 }
 
 .cinematic-content{
@@ -238,8 +304,17 @@ nav a{
   padding:40px;
 }
 
+.cinematic-content p{
+  color:#E5C98C;
+  letter-spacing:6px;
+  font-size:14px;
+  font-weight:900;
+  margin-bottom:24px;
+}
+
 .cinematic-content h2{
   font-size:clamp(56px,9vw,130px);
+  line-height:0.9;
 }
 
 .cinematic-content h2 span{
@@ -254,13 +329,32 @@ nav a{
   margin:30px 0;
 }
 
+.cinematic-content h3{
+  max-width:780px;
+  font-size:clamp(20px,2vw,34px);
+  line-height:1.7;
+  font-weight:400;
+}
+
 /* CONTACT */
 
+.contact{
+  background:#EFE7D8;
+}
+
 .contact-box{
-  background:white;
+  background:rgba(255,255,255,0.76);
   padding:70px;
-  border-radius:46px;
+  border-radius:52px;
   text-align:center;
+  border:1px solid #DCCDB8;
+  box-shadow:0 24px 70px rgba(111,75,52,0.14);
+}
+
+.contact-box p{
+  color:#705746;
+  font-size:20px;
+  line-height:1.8;
 }
 
 .contact-buttons{
@@ -298,6 +392,7 @@ nav a{
   justify-content:center;
   align-items:center;
   z-index:9999;
+  backdrop-filter:blur(12px);
 }
 
 .lightbox img{
@@ -335,6 +430,7 @@ nav a{
   text-decoration:none;
   font-size:34px;
   z-index:99999;
+  box-shadow:0 18px 45px rgba(0,0,0,0.22);
 }
 
 .progress-bar{
@@ -361,6 +457,20 @@ nav a{
     display:none;
   }
 
+  .navbar{
+    height:68px;
+    padding:0 20px;
+  }
+
+  .logo{
+    font-size:20px;
+    letter-spacing:4px;
+  }
+
+  .hero{
+    min-height:100svh;
+  }
+
   .hero-content{
     padding:30px;
     justify-content:flex-end;
@@ -368,7 +478,30 @@ nav a{
   }
 
   .hero h1{
-    font-size:58px;
+    font-size:56px;
+  }
+
+  .desc{
+    font-size:18px;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  .buttons a{
+    text-align:center;
+  }
+
+  .services,
+  .gallery,
+  .contact{
+    padding:72px 20px;
+  }
+
+  .title{
+    font-size:34px;
+    margin-bottom:28px;
   }
 
   .cards{
@@ -388,6 +521,8 @@ nav a{
     min-width:84vw;
     scroll-snap-align:center;
     flex-shrink:0;
+    min-height:300px;
+    border-radius:38px;
   }
 
   .gallery-grid{
@@ -404,9 +539,33 @@ nav a{
 
   .gallery-grid img{
     min-width:84vw;
-    height:420px;
+    height:460px;
     scroll-snap-align:center;
     flex-shrink:0;
+    border-radius:36px;
+  }
+
+  .marquee{
+    font-size:20px;
+  }
+
+  .cinematic-section{
+    height:90svh;
+    border-radius:32px;
+    margin:18px 12px;
+  }
+
+  .cinematic-content h2{
+    font-size:58px;
+  }
+
+  .cinematic-content h3{
+    font-size:20px;
+  }
+
+  .contact-box{
+    padding:44px 24px;
+    border-radius:36px;
   }
 
   .contact-buttons{
@@ -417,6 +576,12 @@ nav a{
     width:100%;
   }
 
+  .floating-whatsapp{
+    bottom:96px;
+    width:64px;
+    height:64px;
+  }
+
   .mobile-nav{
     position:fixed;
     bottom:10px;
@@ -424,18 +589,23 @@ nav a{
     transform:translateX(-50%);
     width:95%;
     height:70px;
-    background:white;
+    background:rgba(255,250,240,0.92);
+    border:1px solid #DCCDB8;
+    backdrop-filter:blur(18px);
     border-radius:999px;
     display:grid;
     grid-template-columns:repeat(4,1fr);
     align-items:center;
     z-index:99999;
+    box-shadow:0 18px 45px rgba(111,75,52,0.18);
   }
 
   .mobile-nav a{
     text-align:center;
     text-decoration:none;
-    color:black;
+    color:#6F4B34;
+    font-size:13px;
+    font-weight:900;
   }
 
   body{
