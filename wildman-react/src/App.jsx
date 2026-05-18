@@ -21,18 +21,22 @@ const galleryImages = [
 ]
 
 export default function App() {
+
   const [heroIndex, setHeroIndex] = useState(0)
   const [openImage, setOpenImage] = useState(null)
 
   useEffect(() => {
+
     const timer = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % heroImages.length)
     }, 3200)
 
     return () => clearInterval(timer)
+
   }, [])
 
   return (
+
     <div className="app">
 
       <div className="progress-bar"></div>
@@ -55,7 +59,7 @@ export default function App() {
         <nav>
           <a href="#home">בית</a>
           <a href="#services">שירותים</a>
-          <a href="#gallery">עבודות</a>
+          <a href="#gallery">פרויקטים</a>
           <a href="#contact">צור קשר</a>
         </nav>
 
@@ -82,6 +86,7 @@ export default function App() {
         <div className="overlay"></div>
 
         <motion.div
+
           className="hero-content"
 
           initial={{
@@ -104,12 +109,14 @@ export default function App() {
           </p>
 
           <h1>
-           
-            <span> מרחבי חוץ עם סיפור </span>
+            מרחבי חוץ
+            <span>עם סיפור</span>
           </h1>
 
           <p className="desc">
-            תכנון והקמה של גינות 
+            תכנון והקמה של גינות יוקרה,
+            מערכות השקיה חכמות,
+            פרגולות ודקים בקו מודרני ונקי.
           </p>
 
           <div className="buttons">
@@ -141,6 +148,7 @@ export default function App() {
         <div className="cards">
 
           <div className="card">
+
             <span>01</span>
 
             <h3>
@@ -150,30 +158,35 @@ export default function App() {
             <p>
               תכנון גינות מודרניות בקו יוקרתי ונקי.
             </p>
+
           </div>
 
           <div className="card">
+
             <span>02</span>
 
             <h3>
-           תכנון השקיה
+              תכנון השקיה
             </h3>
 
             <p>
-    .         מערכות חכמות בטכנולוגיה מתקדמת
+              מערכות חכמות בטכנולוגיה מתקדמת.
             </p>
+
           </div>
 
           <div className="card">
+
             <span>03</span>
 
             <h3>
-            פרגולות ודקים
+              פרגולות ודקים
             </h3>
 
             <p>
-          .
+              פרגולות, דקים ופינות אירוח בגימור יוקרתי.
             </p>
+
           </div>
 
         </div>
@@ -284,7 +297,7 @@ export default function App() {
         </a>
 
         <a href="#gallery">
-          עבודות
+          פרויקטים
         </a>
 
         <a href="#contact">
@@ -313,5 +326,7 @@ export default function App() {
       )}
 
     </div>
+
   )
+
 }

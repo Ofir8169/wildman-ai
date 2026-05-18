@@ -372,15 +372,41 @@ nav a{
   }
 
   .cards{
-    grid-template-columns:1fr;
+    display:flex;
+    overflow-x:auto;
+    gap:18px;
+    scroll-snap-type:x mandatory;
+    padding-bottom:14px;
+    scrollbar-width:none;
+  }
+
+  .cards::-webkit-scrollbar{
+    display:none;
+  }
+
+  .card{
+    min-width:84vw;
+    scroll-snap-align:center;
+    flex-shrink:0;
   }
 
   .gallery-grid{
-    grid-template-columns:1fr;
+    display:flex;
+    overflow-x:auto;
+    gap:16px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+
+  .gallery-grid::-webkit-scrollbar{
+    display:none;
   }
 
   .gallery-grid img{
+    min-width:84vw;
     height:420px;
+    scroll-snap-align:center;
+    flex-shrink:0;
   }
 
   .contact-buttons{
