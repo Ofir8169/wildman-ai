@@ -101,7 +101,7 @@ export default function App() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          עיצוב חוץ ברמה אחרת
+          
         </motion.div>
 
         <div className="cards">
@@ -208,7 +208,7 @@ export default function App() {
           <div className="title">
             רוצים להפוך את החצר
             <br />
-            למרחב יוקרתי?
+            למרחב טבע?
           </div>
 
           <p>
