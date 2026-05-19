@@ -18,6 +18,10 @@ const galleryImages = [
   "/images/garden6.jpeg",
   "/images/garden7.jpeg",
   "/images/garden8.jpeg",
+  "/images/garden9.jpeg",
+  "/images/garden10.jpeg",
+  "/images/garden11.jpeg",
+  "/images/garden12.jpeg",
 ]
 
 export default function App() {
@@ -192,8 +196,8 @@ export default function App() {
           <div className="cinematic-line"></div>
 
           <h3>
-            שילוב של טבע, תאורה, חומרים מדויקים ועיצוב על־זמני.
-          </h3>
+        בwild man אנחנו מאמינים שכל גינה היא סיפור, ואנחנו זוכים לעזור לכם ליצור חוויות חדשות וסיפורים יפים עם רגעים בלתי נשכחים, בעזרת סדרת מפגשים שתעזור לנו ליצור את הפינה שתמיד חלמתם עליה
+       </h3>
         </motion.div>
       </section>
 
@@ -208,7 +212,7 @@ export default function App() {
           <div className="title">
             רוצים להפוך את החצר
             <br />
-            למרחב טבע?
+            לפינת נוף קסומה?
           </div>
 
           <p>
