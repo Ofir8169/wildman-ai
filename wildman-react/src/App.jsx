@@ -20,8 +20,6 @@ const galleryImages = [
   "/images/garden8.jpeg",
   "/images/garden9.jpeg",
   "/images/garden10.jpeg",
-  "/images/garden11.jpeg",
-  "/images/garden12.jpeg",
 ]
 
 export default function App() {
